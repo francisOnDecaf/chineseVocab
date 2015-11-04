@@ -14,7 +14,7 @@ $this->title = 'Chinese Vocab Application';
                 </div>              
                 <?php for($i=1; $i<11; $i++): ?>
                     <div class="col-md-1 box-invert">
-                        <?= Html::encode($i) ?>
+                        <span class="text-20"><?= Html::encode($i) ?></span>
                     </div>
                 <?php endfor; ?>
             </div>
@@ -23,11 +23,14 @@ $this->title = 'Chinese Vocab Application';
                 <?php if(($i%10)==1): ?>
                     <div class="row">
                         <div class="col-md-1 box-invert">
-                            <?= Html::encode($i-1); ?>
+                            <span class="text-20"><?= Html::encode($i-1); ?></span>
                         </div>
                 <?php endif; ?>
-
+                
                 <div class="col-md-1">
+                    <div class="col-md-1 overlap">
+                            <?= Html::encode($symbol['id']) ?>
+                    </div>
                     <?= Html::encode($symbol['symbol']) ?>
                 </div>
 

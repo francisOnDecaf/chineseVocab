@@ -98,6 +98,10 @@ a.desc:after {
     font-size: 50px;
 }
 
+.text-20 {
+    font-size: 20px;
+}
+
 .m-auto {
     margin: 0 auto;
 }
@@ -106,4 +110,15 @@ a.desc:after {
     background: #333;
     color: #fff;
     border: 1px solid #fff;
+}
+
+.overlap {
+    font-size: 10px;
+    padding: 5px;
+    z-index: 2;
+    position: absolute;
+    background: #127fcb;
+    color: #fff;
+    width: 25px;
+    margin-left: -15px;
 }

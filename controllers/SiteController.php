@@ -47,10 +47,14 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * Shows the symbol
+     * @return array list of symbols
+     */
     public function actionIndex()
     {
         $symbols = (new \yii\db\Query())
-            ->select('symbol')
+            ->select('symbol, id')
             ->from('symbols')
             ->all();
             
@@ -59,43 +63,28 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionLogin()
+    /**
+     * Shows the list of words
+     * @return array list of words
+     */
+    public function actionWords()
     {
-        if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+        return $this->render('words');
     }
 
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
+    /**
+     * Add word function
+     * @param text $english English word
+     * @param text $chinese Chinese translation    
+     */
+    public function actionAddword($english, $chinese)
+    {    
+        $word = (new \yii\db\Query())
+            ->insert('words', [
+                'english' => $english,
+                'chinese' => $chinese
+            ]);
 
-        return $this->goHome();
-    }
-
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionAbout()
-    {
-        return $this->render('about');
+        return $this->render('words');
     }
 }
