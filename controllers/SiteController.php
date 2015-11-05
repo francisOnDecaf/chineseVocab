@@ -78,13 +78,12 @@ class SiteController extends Controller
             \Yii::$app->getSession()->setFlash('success', 'The pair you entered has been added!');
             $model = new Translation();
         }
-            
-        
+    
         
         $query = Translation::find();
 
         $pagination = new Pagination([
-            'defaultPageSize' => 5,
+            'defaultPageSize' => 15,
             'totalCount' => $query->count(),
         ]);
 

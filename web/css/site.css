@@ -106,6 +106,10 @@ a.desc:after {
     margin: 0 auto;
 }
 
+.m-top20 {
+    margin-top: 20px;
+}
+
 .p-all {
     padding: 10px;
 }
