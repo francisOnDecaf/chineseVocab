@@ -1,21 +1,32 @@
 <?php
-
-/* @var $this yii\web\View */
 use yii\helpers\Html;
-
-$this->title = 'Chinese Vocab Application';
+use yii\widgets\ActiveForm;
 ?>
+<?php if(null!==(Yii::$app->session->getFlash('success'))): ?>
+	<div class="col-md-12 notification-global-success p-all">
+		<?= Yii::$app->session->getFlash('success'); ?>
+		<span class="pull-right"><span class="glyphicon glyphicon-remove-sign hand-hover" id="close-notification-success"></span></span>
+	</div>
+<?php endif; ?>
+<div class="col-md-3 translate-form" >	
+	<legend>Translate Form</legend>
+	<?php $form = ActiveForm::begin(); ?>
 
-<div>
-	<input type="text" id="english-version" placeholder="English word">
-	<input type="text" id="chinese-translation" placeholder="Chinese translation">
-	<button class="btn btn-primary" id="add-word-btn">Add Word</button>
+	    <?= $form->field($model, 'english') ?>
+
+	    <?= $form->field($model, 'chinese') ?>
+
+	    <div class="form-group">
+	        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+	    </div>
+
+	<?php ActiveForm::end(); ?>
 </div>
 
 <script>
-	$('#add-word-btn').click(function(){
-		english = $('#english-version').val();
-		chinese = $('#chinese-translation').val();
-		window.location.replace('/site/addword/english/'+english+'/chinese/'+chinese);
-	})
+	/** Close the notification bar */
+	$('#close-notification-success').click(function(){
+		console.log('test');
+		$('.notification-global-success').fadeOut("slow");
+	});
 </script>

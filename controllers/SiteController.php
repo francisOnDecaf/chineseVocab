@@ -5,9 +5,9 @@ namespace app\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\data\Pagination;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
+use app\models\Translation;
 
 class SiteController extends Controller
 {
@@ -64,27 +64,40 @@ class SiteController extends Controller
     }
 
     /**
-     * Shows the list of words
-     * @return array list of words
+     * If post request is present
+     * stores the english and chinese pair
+     * if not it shows a list of the words
      */
     public function actionWords()
     {
-        return $this->render('words');
-    }
+        $model = new Translation();
 
-    /**
-     * Add word function
-     * @param text $english English word
-     * @param text $chinese Chinese translation    
-     */
-    public function actionAddword($english, $chinese)
-    {    
-        $word = (new \yii\db\Query())
-            ->insert('words', [
-                'english' => $english,
-                'chinese' => $chinese
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        {
+            $model->save();
+            \Yii::$app->getSession()->setFlash('success', 'The pair you entered has been added!');
+            $model = new Translation();
+        }
+            
+        
+        
+        $query = Translation::find();
 
-        return $this->render('words');
+        $pagination = new Pagination([
+            'defaultPageSize' => 5,
+            'totalCount' => $query->count(),
+        ]);
+
+        $words = $query->orderBy('id')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+       
+
+        return $this->render('words', [
+            'model' => $model,
+            'words' => $words,
+            'pagination' => $pagination,
+        ]);
     }
 }
