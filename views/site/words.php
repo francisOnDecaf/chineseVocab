@@ -29,7 +29,9 @@ use yii\widgets\ActiveForm;
 		<tr>
 			<th class="p-all" width="20%">English</th>
 			<th class="p-all" width="70%">Chinese</th>
+			<?php /* Hide for now 
 			<th class="p-all" width="10%">Actions</th>
+			*/ ?>
 		</tr>			
 
 		<?php if(count($words)>0): ?>				
@@ -61,10 +63,12 @@ use yii\widgets\ActiveForm;
 						<div class="clearfix"></div>
 
 					</td>
+					<?php /* Hide for now
 					<td class="p-all text-center">						
 						<span class="glyphicon glyphicon-pencil hand-hover"></span>
 						<span class="glyphicon glyphicon-trash hand-hover"></span>
-					</td>
+					</td> 
+					*/ ?>
 				</tr>
 			<?php endforeach; ?>
 		<?php else: ?>
