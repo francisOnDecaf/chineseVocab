@@ -27,8 +27,8 @@ use yii\widgets\ActiveForm;
 <div class="col-md-9 word-list" >
 	<table class="m-top20" width="100%" border="1">
 		<tr>
-			<th class="p-all" width="45%">English</th>
-			<th class="p-all" width="45%">Chinese</th>
+			<th class="p-all" width="20%">English</th>
+			<th class="p-all" width="70%">Chinese</th>
 			<th class="p-all" width="10%">Actions</th>
 		</tr>			
 
@@ -36,7 +36,31 @@ use yii\widgets\ActiveForm;
 			<?php foreach($words as $word): ?>
 				<tr>
 					<td class="p-all"><?= $word->english ?></td>
-					<td class="p-all"><?= $word->chinese ?></td>
+					<td class="p-all">
+						<?php 
+							$chinese = $word->chinese;
+							$l=mb_strlen($chinese);
+
+							for($i=0;$i<$l;$i++):
+							    $current_char = mb_substr($chinese,$i,1);
+
+							    $symbols = (new \yii\db\Query())
+					            ->select('id')
+					            ->from('symbols')
+					            ->where(["symbol"=>$current_char])
+					            ->one();
+
+					            ?>
+					            	<div style="float:left; font-size:30px; margin: 15px">
+					            		<?php if($symbols): ?>
+					            			<div class="overlap" style="font-size:8px; margin-top:-20px; width:auto"><?= $symbols['id'] ?></div>
+					            		<?php endif; ?>
+					            		<?= $current_char ?>
+					            	</div>	
+				            <?php endfor; ?>
+						<div class="clearfix"></div>
+
+					</td>
 					<td class="p-all text-center">						
 						<span class="glyphicon glyphicon-pencil hand-hover"></span>
 						<span class="glyphicon glyphicon-trash hand-hover"></span>
