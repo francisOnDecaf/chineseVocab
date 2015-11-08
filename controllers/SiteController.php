@@ -57,9 +57,14 @@ class SiteController extends Controller
             ->select('symbol, id')
             ->from('symbols')
             ->all();
+
+        //Choose a symbol for an instant
+        $symbol_size = count($symbols);
+        $rand = rand(1, $symbol_size);
             
         return $this->render('index', [
             'symbols' => $symbols,
+            'rand' => $rand
         ]);
     }
 
