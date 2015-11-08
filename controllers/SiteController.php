@@ -47,11 +47,40 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionIndex()
+    {
+        $symbols = (new \yii\db\Query())
+            ->select('symbol, id')
+            ->from('symbols')
+            ->all();
+
+        $words = (new \yii\db\Query())
+            ->select('*')
+            ->from('translation')
+            ->all();
+
+        //Choose a symbol for an instant
+        $symbol_size = count($symbols); 
+        $words_size = count($words);        
+
+        $rand_sym = rand(1, $symbol_size-1);
+        $rand_word = rand(1, $words_size-1);
+        $rand_word_c = rand(1, $words_size-1);
+            
+        return $this->render('index', [
+            'symbols' => $symbols,
+            'words' => $words,
+            'rand_sym' => $rand_sym,
+            'rand_word' => $rand_word,
+            'rand_word_c' => $rand_word_c
+        ]);
+    }
+
     /**
      * Shows the symbol
      * @return array list of symbols
      */
-    public function actionIndex()
+    public function actionSymbols()
     {
         $symbols = (new \yii\db\Query())
             ->select('symbol, id')
@@ -60,9 +89,13 @@ class SiteController extends Controller
 
         //Choose a symbol for an instant
         $symbol_size = count($symbols);
-        $rand = rand(1, $symbol_size);
+
+        //Uncomment this if you don't want to specify symbol size
+        $symbol_size = 20;
+
+        $rand = rand(1, $symbol_size-1);
             
-        return $this->render('index', [
+        return $this->render('symbols', [
             'symbols' => $symbols,
             'rand' => $rand
         ]);
@@ -88,7 +121,7 @@ class SiteController extends Controller
         $query = Translation::find();
 
         $pagination = new Pagination([
-            'defaultPageSize' => 15,
+            'defaultPageSize' => 10,
             'totalCount' => $query->count(),
         ]);
 
@@ -103,5 +136,20 @@ class SiteController extends Controller
             'words' => $words,
             'pagination' => $pagination,
         ]);
+    }
+
+    /**
+     * Deletes a word 
+     * @param  integer $id Word ID     
+     */
+    public function actionDeleteword($id)
+    {
+       $model = Translation::find()
+       ->where(['id' => $id])
+       ->one()
+       ->delete();
+
+       \Yii::$app->getSession()->setFlash('success', 'Successfully deleted!');
+       $this->redirect('/site/words');
     }
 }

@@ -131,6 +131,12 @@ a.desc:after {
     margin-left: -15px;
 }
 
+.refresh {
+    margin-left: 55px;
+    background: #DFF2BF;
+    color: #4F8A10;
+}
+
 .notification-global-success {
     text-align: center;
     border-radius: 2px;
@@ -142,4 +148,8 @@ a.desc:after {
 .hand-hover {
     cursor: hand;
     cursor: pointer;
+}
+
+.fix {
+    position: fixed;
 }

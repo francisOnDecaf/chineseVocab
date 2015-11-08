@@ -10,28 +10,28 @@ use yii\widgets\ActiveForm;
 	</div>
 <?php endif; ?>
 
-<div class="col-md-3 translate-form m-top20" >	
-	<legend>Translate Form</legend>
-	<?php $form = ActiveForm::begin(); ?>
+<div class="col-md-3 m-top20" >	
+	<div class="fix translate-form">
+		<legend>Translate Form</legend>
+		<?php $form = ActiveForm::begin(); ?>
 
-	    <?= $form->field($model, 'english') ?>
+		    <?= $form->field($model, 'english') ?>
 
-	    <?= $form->field($model, 'chinese') ?>
+		    <?= $form->field($model, 'chinese') ?>
 
-	    <div class="form-group">
-	        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
-	    </div>
+		    <div class="form-group">
+		        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+		    </div>
 
-	<?php ActiveForm::end(); ?>
+		<?php ActiveForm::end(); ?>
+	</div>
 </div>
 <div class="col-md-9 word-list" >
 	<table class="m-top20" width="100%" border="1">
 		<tr>
 			<th class="p-all" width="20%">English</th>
-			<th class="p-all" width="70%">Chinese</th>
-			<?php /* Hide for now 
+			<th class="p-all" width="70%">Chinese</th>			
 			<th class="p-all" width="10%">Actions</th>
-			*/ ?>
 		</tr>			
 
 		<?php if(count($words)>0): ?>				
@@ -63,14 +63,21 @@ use yii\widgets\ActiveForm;
 						<div class="clearfix"></div>
 
 					</td>
-					<?php /* Hide for now
-					<td class="p-all text-center">						
+					
+					<td class="p-all text-center">
+						<?php /* Hide for now						
 						<span class="glyphicon glyphicon-pencil hand-hover"></span>
-						<span class="glyphicon glyphicon-trash hand-hover"></span>
+						*/ ?>
+						<a href="/site/deleteword/<?php echo $word->id ?> "><span class="glyphicon glyphicon-trash hand-hover"></span></a>
 					</td> 
-					*/ ?>
+					
 				</tr>
 			<?php endforeach; ?>
+			<?php 
+				echo LinkPager::widget([
+				    'pagination' => $pagination,
+				]);
+			?>
 		<?php else: ?>
 			<tr>
 				<td colspan="3" class="text-center"><h3>No words found.</h3></td>

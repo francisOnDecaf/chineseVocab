@@ -21,46 +21,62 @@ $this->title = 'Chinese Vocab Application';
         </div>        
     </div>
     <br><br>    
-        <div class="col-md-12 text-50 m-auto"> 
-            <div class="row">  
-                <div class="col-md-1">                    
-                    <div class="col-md-1 overlap">
-                            <?= Html::encode($symbols[$rand]['id']) ?>
+        <div class="col-md-12 text-20 m-auto">   
+            <div class="row">   
+                <div class="col-md-4">
+                    <div class="box-invert col-md-12 p-all">
+                        Symbol for the Instant
+                    </div>                    
+                    <div class="col-md-1 overlap" style="margin: 3px;">
+                            <?= Html::encode($symbols[$rand_sym]['id']) ?>
+                    </div>                
+                    <?= Html::encode($symbols[$rand_sym]['symbol']) ?>    
+                </div> 
+                <div class="col-md-4">
+                    <div class="box-invert col-md-12 p-all">
+                        Word for the Instant
+                    </div>                        
+                    <?= Html::encode($words[$rand_word]['english']) ?>
+                    <div class="col-md-12 p-all" id="show_chinese_container" style="display:none">
+                        <span><?= Html::encode($words[$rand_word]['chinese']) ?></span>
                     </div>
-                    <?= Html::encode($symbols[$rand]['symbol']) ?>
-                </div>              
-                <?php for($i=1; $i<11; $i++): ?>
-                    <div class="col-md-1 box-invert">
-                        <span class="text-20"><?= Html::encode($i) ?></span>
+                    <div class="col-md-12 p-all" id="show_chinese">
+                        <button class="btn btn-primary">Translate in Chinese</button>
                     </div>
-                <?php endfor; ?>
+                </div> 
+                <div class="col-md-4"> 
+                    <div class="box-invert col-md-12 p-all">
+                        Chinese Word for the Instant
+                    </div>                                                
+                    <?= Html::encode($words[$rand_word_c]['chinese']) ?>
+                    <div class="col-md-12 p-all" id="show_english_container" style="display:none">
+                        <span><?= Html::encode($words[$rand_word_c]['english']) ?></span>
+                    </div> 
+                    <div class="col-md-12 p-all" id="show_english">
+                        <button class="btn btn-primary">Translate in Chinese</button>
+                    </div>                      
+                </div>  
+                <div class="col-md-1 overlap refresh" id="refresh_symbol" style="margin-left: 1099px;">
+                    <span class="glyphicon glyphicon-refresh hand-hover"></span>
+                </div>          
             </div>
-            <?php $i=1; ?>
-            <?php foreach($symbols as $symbol): ?>
-                <?php if(($i%10)==1): ?>
-                    <div class="row">
-                        <div class="col-md-1 box-invert">
-                            <span class="text-20"><?= Html::encode($i-1); ?></span>
-                        </div>
-                <?php endif; ?>
-                
-                <div class="col-md-1">
-                    <div class="col-md-1 overlap">
-                            <?= Html::encode($symbol['id']) ?>
-                    </div>
-                    <?= Html::encode($symbol['symbol']) ?>
-                </div>
-
-                <?php if(($i%10)==0): ?>
-                        <div class="col-md-1">
-                            &nbsp;
-                        </div>
-                    </div>
-                <?php endif; ?>
-
-            <?php $i++; ?>
-            <?php endforeach; ?>
-
-        </div>
+            
+        </div>                                      
     </div>
 </div>
+
+<script>
+    $('#refresh_symbol').click(function(){
+        location.reload();
+    })
+
+    $('#show_chinese').click(function(){
+        $('#show_chinese_container').slideDown();
+        $(this).slideUp();
+    });
+
+    $('#show_english').click(function(){
+        $('#show_english_container').slideDown();
+        $(this).slideUp();
+    });
+</script>
