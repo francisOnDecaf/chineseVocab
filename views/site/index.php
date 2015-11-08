@@ -35,26 +35,34 @@ $this->title = 'Chinese Vocab Application';
                 <div class="col-md-4">
                     <div class="box-invert col-md-12 p-all">
                         Word for the Instant
-                    </div>                        
-                    <?= Html::encode($words[$rand_word]['english']) ?>
-                    <div class="col-md-12 p-all" id="show_chinese_container" style="display:none">
-                        <span><?= Html::encode($words[$rand_word]['chinese']) ?></span>
                     </div>
-                    <div class="col-md-12 p-all" id="show_chinese">
-                        <button class="btn btn-primary">Translate in Chinese</button>
-                    </div>
+                    <?php if(isset($words[$rand_word]['english'])): ?>                  
+                        <?= Html::encode($words[$rand_word]['english']) ?>
+                        <div class="col-md-12 p-all" id="show_chinese_container" style="display:none">
+                            <span><?= Html::encode($words[$rand_word]['chinese']) ?></span>
+                        </div>
+                        <div class="col-md-12 p-all" id="show_chinese">
+                            <button class="btn btn-primary">Translate in Chinese</button>
+                        </div>
+                    <?php else: ?>
+                        <span>No words added yet. <a href="/site/words">Add word</a></span>
+                    <?php endif; ?>
                 </div> 
                 <div class="col-md-4"> 
                     <div class="box-invert col-md-12 p-all">
                         Chinese Word for the Instant
-                    </div>                                                
-                    <?= Html::encode($words[$rand_word_c]['chinese']) ?>
-                    <div class="col-md-12 p-all" id="show_english_container" style="display:none">
-                        <span><?= Html::encode($words[$rand_word_c]['english']) ?></span>
-                    </div> 
-                    <div class="col-md-12 p-all" id="show_english">
-                        <button class="btn btn-primary">Translate in Chinese</button>
-                    </div>                      
+                    </div>         
+                    <?php if(isset($words[$rand_word]['english'])): ?>                                                         
+                        <?= Html::encode($words[$rand_word_c]['chinese']) ?>
+                        <div class="col-md-12 p-all" id="show_english_container" style="display:none">
+                            <span><?= Html::encode($words[$rand_word_c]['english']) ?></span>
+                        </div> 
+                        <div class="col-md-12 p-all" id="show_english">
+                            <button class="btn btn-primary">Translate in Chinese</button>
+                        </div>   
+                    <?php else: ?>
+                        <span>No words added yet. <a href="/site/words">Add word</a></span>
+                    <?php endif; ?>                   
                 </div>  
                 <div class="col-md-1 overlap refresh" id="refresh_symbol" style="margin-left: 1099px;">
                     <span class="glyphicon glyphicon-refresh hand-hover"></span>

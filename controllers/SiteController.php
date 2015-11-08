@@ -63,9 +63,9 @@ class SiteController extends Controller
         $symbol_size = count($symbols); 
         $words_size = count($words);        
 
-        $rand_sym = rand(1, $symbol_size-1);
-        $rand_word = rand(1, $words_size-1);
-        $rand_word_c = rand(1, $words_size-1);
+        $rand_sym = rand(0, $symbol_size-1);
+        $rand_word = rand(0, $words_size-1);
+        $rand_word_c = rand(0, $words_size-1);
             
         return $this->render('index', [
             'symbols' => $symbols,
@@ -93,7 +93,7 @@ class SiteController extends Controller
         //Uncomment this if you don't want to specify symbol size
         $symbol_size = 20;
 
-        $rand = rand(1, $symbol_size-1);
+        $rand = rand(0, $symbol_size-1);
             
         return $this->render('symbols', [
             'symbols' => $symbols,
